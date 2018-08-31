@@ -9,7 +9,7 @@ app.use(express.static('dist'));
 app.get('/api/getUsername', (req, res) =>
   res.send({ username: os.userInfo().username })
 );
-// Always return the main index.html, so react-router render the route in the client
+// Fall back to returning the main index.html, so react-router renders the route in the client
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', '../dist', 'index.html'));
 });
