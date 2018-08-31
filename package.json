@@ -1,5 +1,5 @@
 {
-  "name": "simple-react-full-stack",
+  "name": "react-node-starter",
   "version": "1.0.0",
   "description": "Boilerplate to build a full stack web application using React, Node.js, Express and Webpack.",
   "main": "src/server/index.js",
@@ -10,7 +10,7 @@
     "server": "nodemon src/server/index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
-  "author": "Sandeep Raveesh",
+  "author": "Joseph Wang",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.3",
@@ -22,13 +22,14 @@
     "@babel/plugin-proposal-class-properties": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
+    "@nuscout/eslint-config": "^0.2.0",
+    "@nuscout/prettier-config": "^0.1.2",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.0",
     "clean-webpack-plugin": "^0.1.19",
     "concurrently": "^4.0.0",
     "css-loader": "^1.0.0",
     "eslint": "^5.0.0",
-    "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",

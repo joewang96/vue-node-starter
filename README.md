@@ -1,7 +1,8 @@
 # simple-react-full-stack
 
-[![Build Status](https://travis-ci.org/crsandeep/simple-react-full-stack.svg?branch=master)](https://travis-ci.org/crsandeep/simple-react-full-stack)
-[![Greenkeeper badge](https://badges.greenkeeper.io/crsandeep/simple-react-full-stack.svg)](https://greenkeeper.io/)
+Based on [this project](https://github.com/crsandeep/simple-react-full-stack), modified to better suit the needs of Scout Studio Teams.
+
+---
 
 This is a boilerplate to build a full stack web application using React, Node.js, Express and Webpack. It is also configured with webpack-dev-server, eslint, prettier and babel.
 
@@ -86,20 +87,20 @@ Babel requires plugins to do the transformation. Presets are the set of plugins 
 
 ```javascript
 {
-  "extends": ["airbnb"],
+  "parser": "babel-eslint",
+  "extends": ["@nuscout"],
   "env": {
     "browser": true,
     "node": true
-  },
-  "rules": {
-    "no-console": "off",
-    "comma-dangle": "off",
-    "react/jsx-filename-extension": "off"
   }
 }
 ```
 
-[I am using Airbnb's Javascript Style Guide](https://github.com/airbnb/javascript) which is used by many JavaScript developers worldwide. Since we are going to write both client (browser) and server side (Node.js) code, I am setting the **env** to browser and node. Optionally, we can override the Airbnb's configurations to suit our needs. I have turned off [**no-console**](https://eslint.org/docs/rules/no-console), [**comma-dangle**](https://eslint.org/docs/rules/comma-dangle) and [**react/jsx-filename-extension**](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md) rules.
+[I am using Scout's ESLint config](https://github.com/Scout-NU/eslint-config) which is the basis for all Scout Studio projects. Since we are going to write both client (browser) and server side (Node.js) code, I am setting the **env** to browser and node.
+
+### Prettier
+
+[Prettier](https://prettier.io/) is a tool that helps keep code formatting consistent across the different developers making changes. [I am using Scout's Prettier config](https://github.com/Scout-NU/prettier-config) which is the basis for all Scout Studio projects.
 
 ### Webpack
 
@@ -108,17 +109,17 @@ Babel requires plugins to do the transformation. Presets are the set of plugins 
 [webpack.config.js](https://webpack.js.org/configuration/) file is used to describe the configurations required for webpack. Below is the webpack.config.js file which I am using.
 
 ```javascript
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-const outputDirectory = "dist";
+const outputDirectory = 'dist';
 
 module.exports = {
-  entry: "./src/client/index.js",
+  entry: './src/client/index.js',
   output: {
     path: path.join(__dirname, outputDirectory),
-    filename: "bundle.js"
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -126,33 +127,33 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        loader: "url-loader?limit=100000"
-      }
-    ]
+        loader: 'url-loader?limit=100000',
+      },
+    ],
   },
   devServer: {
     port: 3000,
     open: true,
     proxy: {
-      "/api": "http://localhost:8080"
-    }
+      '/api': 'http://localhost:8080',
+    },
   },
   plugins: [
     new CleanWebpackPlugin([outputDirectory]),
     new HtmlWebpackPlugin({
-      template: "./public/index.html",
-      favicon: "./public/favicon.ico"
-    })
-  ]
+      template: './public/index.html',
+      favicon: './public/favicon.ico',
+    }),
+  ],
 };
 ```
 
@@ -201,16 +202,16 @@ Express is a web application framework for Node.js. It is used to build our back
 src/server/index.js is the entry point to the server application. Below is the src/server/index.js file
 
 ```javascript
-const express = require("express");
-const os = require("os");
+const express = require('express');
+const os = require('os');
 
 const app = express();
 
-app.use(express.static("dist"));
-app.get("/api/getUsername", (req, res) =>
+app.use(express.static('dist'));
+app.get('/api/getUsername', (req, res) =>
   res.send({ username: os.userInfo().username })
 );
-app.listen(8080, () => console.log("Listening on port 8080!"));
+app.listen(8080, () => console.log('Listening on port 8080!'));
 ```
 
 This starts a server and listens on port 8080 for connections. The app responds with `{username: <username>}` for requests to the URL (/api/getUsername). It is also configured to serve the static files from **dist** directory.
