@@ -1,13 +1,14 @@
-# react-express-starter
+# vue-express-starter
 
-Based on [this project](https://github.com/crsandeep/simple-react-full-stack), modified to better suit the needs of Scout Studio Teams. Exposes an Express back-end for any
+Based on [this project](https://github.com/crsandeep/simple-react-full-stack), modified to better suit the needs of Scout Studio Teams. Adapted to use Vue.js as the front-end framework rather than React.
 
 ---
 
 This is a boilerplate to build a full stack web application using React, Node.js, Express and Webpack. It is also configured with webpack-dev-server, eslint, prettier and babel.
 
-- [simple-react-full-stack](#simple-react-full-stack)
+- [vue-express-starter](#vue-express-starter)
   - [Introduction](#introduction)
+    - [Vue Resources](#vue-resources)
     - [Development mode](#development-mode)
     - [Production mode](#production-mode)
   - [Quick Start](#quick-start)
@@ -27,7 +28,14 @@ This is a boilerplate to build a full stack web application using React, Node.js
 
 [Create React App](https://github.com/facebook/create-react-app) is a quick way to get started with React development and it requires no build configuration. But it completely hides the build config which makes it difficult to extend. It also requires some additional work to integrate it with an existing Node.js/Express backend application.
 
-This is a simple full stack [React](https://reactjs.org/) application with a [Node.js](https://nodejs.org/en/) and [Express](https://expressjs.com/) backend. Client side code is written in React and the backend API is written using Express. This application is configured with [Scout's ESLint rules](https://github.com/Scout-NU/eslint-config) and formatted with [Scout's prettier config](https://github.com/Scout-NU/prettier-config).
+This is a simple full stack Vue application with a [Node.js](https://nodejs.org/en/) and [Express](https://expressjs.com/) backend. Client side code is written in React and the backend API is written using Express. This application is configured with [Scout's ESLint rules](https://github.com/Scout-NU/eslint-config) and formatted with [Scout's prettier config](https://github.com/Scout-NU/prettier-config).
+
+### Vue Resources
+
+- [Vue Main Docs](https://vuejs.org/)
+- [Vue Rotuer](https://router.vuejs.org/)
+- [Vue Single-File-Components](https://vuejs.org/v2/guide/single-file-components.html)
+- [Vue State Management](https://vuex.vuejs.org/)
 
 ### Development mode
 
@@ -41,7 +49,7 @@ In the production mode, we will have only 1 server running. All the client side 
 
 ```bash
 # Clone the repository
-git clone https://github.com/crsandeep/simple-react-full-stack
+git clone https://github.com/joewang96/vue-node-starter
 
 # Go inside the directory
 cd simple-react-full-stack
@@ -138,6 +146,10 @@ module.exports = {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
         loader: 'url-loader?limit=100000',
       },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+      },
     ],
   },
   devServer: {
@@ -153,7 +165,13 @@ module.exports = {
       template: './public/index.html',
       favicon: './public/favicon.ico',
     }),
+    new VueLoaderPlugin(),
   ],
+  resolve: {
+    alias: {
+      vue: 'vue/dist/vue.js',
+    },
+  },
 };
 ```
 

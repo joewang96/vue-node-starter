@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const outputDirectory = 'dist';
 
@@ -27,6 +28,10 @@ module.exports = {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
         loader: 'url-loader?limit=100000',
       },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+      },
     ],
   },
   devServer: {
@@ -43,5 +48,11 @@ module.exports = {
       template: './public/index.html',
       favicon: './public/favicon.ico',
     }),
+    new VueLoaderPlugin(),
   ],
+  resolve: {
+    alias: {
+      vue: 'vue/dist/vue.js',
+    },
+  },
 };
