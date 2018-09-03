@@ -1,7 +1,12 @@
 <template>
   <div>
     <h1>Vue + Express Starter App</h1>
-    <p>{{ message }}</p>
+    <p v-if="userName">
+      Hello {{ userName }}!
+    </p>
+    <p v-else>
+      Loading...
+    </p>
     <router-link to="/nope">Try 404 handling</router-link>
   </div>
 </template>
@@ -10,9 +15,22 @@
 export default {
   data() {
     return {
-      message: 'Hello World!'
+      userName: null,
     }
   },
+  created() {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.fetchData()
+  },
+  methods: {
+    fetchData() {
+      // example of fetching from Express API - modify endpoints in /src/server/
+      fetch('/api/getUsername')
+        .then(res => res.json())
+        .then(user => this.userName = user.username);
+    }
+  }
 }
 </script>
 
